@@ -10,35 +10,62 @@ public class Main {
         // ArrayList para armazenar lista de cursos e professores.
         List<String> cursosProfessores = new ArrayList<>();
 
-        String itemLista = "start";
+
+        System.out.println("*************");
+        System.out.println("* BEM VINDO *");
+        System.out.println("*************\n");
 
 
-        //laço de repetição
-        while (true){
-           System.out.println("Digite um curso/professor ou digite [0] caso queira sair: ");
-            itemLista = scanner.next();
-            if(itemLista.equals("0")){
-                break;
-            } else{
-                adicionarCursoProfessor(itemLista,  cursosProfessores);
+        do {
+            System.out.println("|---------------|");
+            System.out.println("| 1- Listar     |");
+            System.out.println("| 2- Adicionar  |");
+            System.out.println("|---------------|");
+            System.out.println("| 0- Sair       |");
+            System.out.println("|---------------|");
+            System.out.println("Selecione uma opção:");
+
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // consome enter depois do número
+
+            // Menu
+            switch (opcao) {
+                case 1: // listar
+                    listarCursosProfessores(cursosProfessores);
+                    break;
+                case 2: // adicionar
+                    adicionarCursoProfessor(scanner, cursosProfessores);
+                    break;
+                case 0: // sair
+                    return;
+                default:
+                    System.out.println("Insira uma opção válida.");
             }
-       }
-        listarCursosProfessores(cursosProfessores);
-        }
 
+            espacoVertical();
+        } while (true);
 
-     //FUNÇÕES
+    }
+
+    
 
     //Adicionar curso/professores na lista
-    private static void adicionarCursoProfessor(String item, List<String> cursosProfessores){
-        cursosProfessores.add(item);
+    private static void adicionarCursoProfessor(Scanner entrada, List<String> cursosProfessores) {
+        System.out.println("Digite um curso/professor: ");
+        String itemLista = entrada.nextLine();
+        cursosProfessores.add(itemLista);
+        System.out.println("Curso/professor adicionado!!");
     }
 
     // Listar os cursos/professores inseridos
-    private static void listarCursosProfessores(List<String> cursosProfessores){
+    private static void listarCursosProfessores(List<String> cursosProfessores) {
         System.out.println("\nSua lista de cursos/professores é:");
-        for(String numeroCurso: cursosProfessores){
-            System.out.println(numeroCurso);
+        for (int i = 0; i < cursosProfessores.size(); i++) {
+            System.out.println((i + 1) + " - " + cursosProfessores.get(i));
         }
+    }
+
+    private static void espacoVertical() {
+        System.out.println("\n\n\n");
     }
 }
