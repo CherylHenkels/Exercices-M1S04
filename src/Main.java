@@ -20,6 +20,7 @@ public class Main {
             System.out.println("|---------------|");
             System.out.println("| 1- Listar     |");
             System.out.println("| 2- Adicionar  |");
+            System.out.println("| 3- Remover    |");
             System.out.println("|---------------|");
             System.out.println("| 0- Sair       |");
             System.out.println("|---------------|");
@@ -36,6 +37,9 @@ public class Main {
                 case 2: // adicionar
                     adicionarCursoProfessor(scanner, cursosProfessores);
                     break;
+                case 3: // remover
+                    removerItemLista(scanner, cursosProfessores);
+                    break;
                 case 0: // sair
                     return;
                 default:
@@ -47,7 +51,31 @@ public class Main {
 
     }
 
-    
+    private static void removerItemLista(Scanner entrada, List<String> cursosProfessores) {
+        int indice = listarPedirIndice(entrada,cursosProfessores);
+        removeritem(indice, cursosProfessores);
+    }
+
+    private static void removeritem(int indice, List<String> cursosProfessores) {
+        cursosProfessores.remove((indice - 1));
+        System.out.println("O curso/professor foi removido com sucesso!");
+    }
+
+
+    private static int listarPedirIndice(Scanner entrada, List<String> cursosProfessores) {
+        do {
+            listarCursosProfessores(cursosProfessores);
+            System.out.println("Digite o índice do curso/professor que você deseja selecionar");
+            int indiceCursoProfessor = nextInt(entrada);
+            if ( indiceCursoProfessor > cursosProfessores.size()) {
+                System.out.println("Indice inválido");
+                listarPedirIndice(entrada, cursosProfessores);
+            }
+            return indiceCursoProfessor;
+        } while(true);
+    }
+
+
 
     //Adicionar curso/professores na lista
     private static void adicionarCursoProfessor(Scanner entrada, List<String> cursosProfessores) {
@@ -67,5 +95,12 @@ public class Main {
 
     private static void espacoVertical() {
         System.out.println("\n\n\n");
+    }
+
+    private static int nextInt(Scanner scn) {
+        int i = scn.nextInt();
+        //consumindo "ENTER" para futuros "nextLine()"
+        scn.nextLine();
+        return i;
     }
 }
